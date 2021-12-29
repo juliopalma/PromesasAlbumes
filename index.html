@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- Español -->
+<html lang="es">
+
+<head>
+    <!-- Codificación UTF-8 para permitir caracteres "Extraños" -->
+    <meta charset="utf-8">
+
+    <!-- Escala  del dispositivo -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- descripcion de la pagina -->
+    <meta name="description" content="Esta es una pagina de lugares preciosos de chile y en la que te puedes llenar el formulario para poder contactarnos, asi agendar una hora" />
+
+    <!-- Palabras clave para tener buen posicionamiento en las busquedas segun las palabras utilizadas-->
+    <meta name="keywords" content="palabra clave 1, palabra clave 2, palabra clave 3" />
+
+    <!-- Diseñador de la página web -->
+    <meta name="author" content="Julio Andrés Palma Quezada" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Para usar las fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Titulo pestania -->
+    <title>Albumes</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row" id="albumes">
+
+        </div>
+    </div>
+
+    <script>
+        async function cargarAlbumes() {
+            try {
+                const urlAlbumes = `https://jsonplaceholder.typicode.com/photos`;
+                const datos = await fetch(urlAlbumes);
+                const imgAlbumes = await datos.json();
+
+                for (foto of imgAlbumes) {
+                    if (foto.id <= 20) {
+                        $("#albumes").append(`<div class="col-3 p-3">
+                            <p>${foto.title}</p>
+                            <p>${foto.thumbnailUrl}</p>
+                            <img class="d-block w-100" src="${foto.url}" alt="Imagen de un album">
+                        </div>`);
+                    }
+                }
+
+
+            } catch (err) {
+                console.log("Se ha producido el siguiente error: " + err);
+            }
+        }
+
+        function iniciar() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    cargarAlbumes();
+                    resolve("Información Enviada")
+                }, 3000)
+            })
+        }
+
+        iniciar().then(console.log)
+    </script>
+
+    <!-- CDN de JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+
+</html>
